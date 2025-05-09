@@ -1,34 +1,42 @@
+import { logger } from '#services/logger'
 import { ApplicationService } from '@adonisjs/core/types'
 
 import { setTimeout } from 'node:timers/promises'
 
 export default class AProvider {
   constructor(protected app: ApplicationService) {
-    console.log('A Provider constructor')
+    logger.info('A Provider constructor')
+    logger.info('A Provider constructor finished')
   }
 
   register() {
-    console.log('A Provider register')
+    logger.info('A Provider register')
+    logger.info('A Provider register finished')
   }
 
   async boot() {
-    console.log('A Provider boot')
+    logger.info('A Provider boot')
     const b = await this.app.container.make('b')
-    console.log('calling b in a')
+    logger.info('DI: calling b in a')
     b()
+    logger.info('A Provider boot finished')
   }
 
   async start() {
-    console.log('A Provider start')
+    logger.info('A Provider start')
+    await setTimeout(500)
+    logger.info('A Provider start finished')
   }
 
   async ready() {
-    console.log('A Provider ready')
+    logger.info('A Provider ready')
+    await setTimeout(500)
+    logger.info('A Provider ready finished')
   }
 
   async shutdown() {
-    console.log('A Provider shutdown started')
-    await setTimeout(2000)
-    console.log('A Provider shutdown finished')
+    logger.info('A Provider shutdown')
+    await setTimeout(500)
+    logger.info('A Provider shutdown finished')
   }
 }

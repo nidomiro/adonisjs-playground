@@ -1,3 +1,4 @@
+import { logger } from '#services/logger'
 import { ApplicationService } from '@adonisjs/core/types'
 import { setTimeout } from 'node:timers/promises'
 
@@ -9,34 +10,42 @@ declare module '@adonisjs/core/types' {
 
 export default class CProvider {
   constructor(protected app: ApplicationService) {
-    console.log('C Provider constructor')
+    logger.info('C Provider constructor')
     this.app.container.singleton('c', () => {
-      console.log('c Factory called')
+      logger.info('DI: c Factory called')
       return () => {
-        console.log('singelton from C Provider called')
+        logger.info('DI: singleton from CProvider called')
       }
     })
+    logger.info('C Provider constructor finished')
   }
 
   register() {
-    console.log('C Provider register')
+    logger.info('C Provider register')
+    logger.info('C Provider register finished')
   }
 
   async boot() {
-    console.log('C Provider boot')
+    logger.info('C Provider boot')
+    await setTimeout(500)
+    logger.info('C Provider boot finished')
   }
 
   async start() {
-    console.log('C Provider start')
+    logger.info('C Provider start')
+    await setTimeout(500)
+    logger.info('C Provider start finished')
   }
 
   async ready() {
-    console.log(' CProvider ready')
+    logger.info('C Provider ready')
+    await setTimeout(500)
+    logger.info('C Provider ready finished')
   }
 
   async shutdown() {
-    console.log('C Provider shutdown started')
-    await setTimeout(2000)
-    console.log('C Provider shutdown finished')
+    logger.info('C Provider shutdown')
+    await setTimeout(500)
+    logger.info('C Provider shutdown finished')
   }
 }

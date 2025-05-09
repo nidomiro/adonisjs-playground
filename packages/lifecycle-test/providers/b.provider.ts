@@ -1,3 +1,4 @@
+import { logger } from '#services/logger'
 import { ApplicationService } from '@adonisjs/core/types'
 import { setTimeout } from 'node:timers/promises'
 
@@ -9,37 +10,45 @@ declare module '@adonisjs/core/types' {
 
 export default class BProvider {
   constructor(protected app: ApplicationService) {
-    console.log('B Provider constructor')
+    logger.info('B Provider constructor')
+    logger.info('B Provider constructor finished')
   }
 
   register() {
-    console.log('B Provider register')
+    logger.info('B Provider register')
     this.app.container.singleton('b', async (resolver) => {
-      console.log('b Factory called')
+      logger.info('DI: b Factory called')
       const c = await resolver.make('c')
-      console.log('calling c in b')
+      logger.info('DI: calling c in b Factory')
       c()
       return () => {
-        console.log('singelton from BProvider called')
+        logger.info('DI: singleton from BProvider called')
       }
     })
+    logger.info('B Provider register finished')
   }
 
   async boot() {
-    console.log('B Provider boot')
+    logger.info('B Provider boot')
+    await setTimeout(500)
+    logger.info('B Provider boot finished')
   }
 
   async start() {
-    console.log('B Provider start')
+    logger.info('B Provider start')
+    await setTimeout(500)
+    logger.info('B Provider start finished')
   }
 
   async ready() {
-    console.log('B Provider ready')
+    logger.info('B Provider ready')
+    await setTimeout(500)
+    logger.info('B Provider ready finished')
   }
 
   async shutdown() {
-    console.log('B Provider shutdown started')
-    await setTimeout(2000)
-    console.log('B Provider shutdown finished')
+    logger.info('B Provider shutdown')
+    await setTimeout(500)
+    logger.info('B Provider shutdown finished')
   }
 }
