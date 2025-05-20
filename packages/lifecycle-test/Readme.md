@@ -2,6 +2,8 @@
 
 ## Execution order
 
+### Before 6.18.0
+
 Output:
 
 ```log
@@ -49,4 +51,54 @@ Output:
 [11:40:51.984] INFO (44472): B Provider shutdown finished
 [11:40:51.984] INFO (44472): C Provider shutdown
 [11:40:52.485] INFO (44472): C Provider shutdown finished
+```
+
+### After 6.18.0 (with experimental Flag)
+
+Output:
+
+```log
+[07:31:21.208] INFO (98196): A Provider constructor
+[07:31:21.208] INFO (98196): A Provider constructor finished
+[07:31:21.209] INFO (98196): A Provider register
+[07:31:21.209] INFO (98196): A Provider register finished
+[07:31:21.209] INFO (98196): B Provider constructor
+[07:31:21.209] INFO (98196): B Provider constructor finished
+[07:31:21.209] INFO (98196): B Provider register
+[07:31:21.209] INFO (98196): B Provider register finished
+[07:31:21.209] INFO (98196): C Provider constructor
+[07:31:21.209] INFO (98196): C Provider constructor finished
+[07:31:21.209] INFO (98196): C Provider register
+[07:31:21.209] INFO (98196): C Provider register finished
+[07:31:21.219] INFO (98196): A Provider boot
+[07:31:21.219] INFO (98196): DI: b Factory called
+[07:31:21.219] INFO (98196): DI: c Factory called
+[07:31:21.219] INFO (98196): DI: calling c in b Factory
+[07:31:21.219] INFO (98196): DI: singleton from CProvider called
+[07:31:21.219] INFO (98196): DI: calling b in a
+[07:31:21.219] INFO (98196): DI: singleton from BProvider called
+[07:31:21.219] INFO (98196): A Provider boot finished
+[07:31:21.219] INFO (98196): B Provider boot
+[07:31:21.720] INFO (98196): B Provider boot finished
+[07:31:21.720] INFO (98196): C Provider boot
+[07:31:22.221] INFO (98196): C Provider boot finished
+[07:31:22.222] INFO (98196): A Provider start
+[07:31:22.723] INFO (98196): A Provider start finished
+[07:31:22.723] INFO (98196): B Provider start
+[07:31:23.223] INFO (98196): B Provider start finished
+[07:31:23.224] INFO (98196): C Provider start
+[07:31:23.725] INFO (98196): C Provider start finished
+[07:31:23.770] INFO (98196): A Provider ready
+[07:31:24.272] INFO (98196): A Provider ready finished
+[07:31:24.272] INFO (98196): B Provider ready
+[07:31:23.770] INFO (98196): started HTTP server on localhost:3333
+[07:31:24.774] INFO (98196): B Provider ready finished
+[07:31:24.775] INFO (98196): C Provider ready
+[07:31:25.275] INFO (98196): C Provider ready finished
+^C⏎                                                                                                                                        [07:31:28.890] INFO (98196): C Provider shutdown
+[07:31:29.392] INFO (98196): C Provider shutdown finished
+[07:31:29.392] INFO (98196): B Provider shutdown
+[07:31:29.892] INFO (98196): B Provider shutdown finished
+[07:31:29.893] INFO (98196): A Provider shutdown
+[07:31:30.393] INFO (98196): A Provider shutdown finished
 ```
